@@ -8,4 +8,13 @@ re:
 	docker-compose -f ./srcs/docker-compose.yml up
 
 fclean:
-	docker system prune -y
+	docker system prune -f
+
+ps:
+	docker-compose -f ./srcs/docker-compose.yml ps
+
+nginx:
+	docker-compose -f ./srcs/docker-compose.yml exec nginx /bin/bash
+
+mariadb:
+	docker-compose -f ./srcs/docker-compose.yml exec mariadb /bin/bash

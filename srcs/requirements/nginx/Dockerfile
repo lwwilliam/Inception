@@ -8,9 +8,10 @@ FROM debian:bullseye
 RUN apt-get update -y && apt upgrade -y && apt-get install -y nginx && apt install openssl -y
 
 # RUN rm /etc/nginx/sites-enabled/default
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=MY/ST=Selangor/L=Subang Jaya/O=42KL/OU=Student/CN=william/"
 
 #copy the niginx config to the container config directory
-# COPY /conf/nginx.conf /etc/nginx/sites-available/default
+COPY /conf/nginx.conf /etc/nginx/sites-available/default
 
 #port 433 is for tls 1.3
 EXPOSE 80
