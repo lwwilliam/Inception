@@ -7,7 +7,6 @@ FROM debian:bullseye
 # useful for private and sensitive information such as passwords, credit card numbers, and personal correspondence.
 RUN apt-get update -y && apt upgrade -y && apt-get install -y nginx && apt install openssl -y
 
-# RUN rm /etc/nginx/sites-enabled/default
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt -subj "/C=MY/ST=Selangor/L=Subang Jaya/O=42KL/OU=Student/CN=william/"
 
 #copy the niginx config to the container config directory
