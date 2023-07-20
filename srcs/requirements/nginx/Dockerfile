@@ -14,8 +14,8 @@ COPY /tools/script.sh /
 COPY /conf/default /etc/nginx/sites-available/default
 
 #port 433 is for tls 1.3
-EXPOSE 80
 EXPOSE 443
+EXPOSE 80
 
 # When daemon mode is enabled, the Nginx process runs in the background and detaches 
 # from the terminal. When daemon mode is disabled, the Nginx process runs in the 
