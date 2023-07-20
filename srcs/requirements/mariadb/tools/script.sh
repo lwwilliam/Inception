@@ -1,11 +1,15 @@
 #!/bin/bash
 
-mysqld start
+echo "USE mysql;
+FLUSH PRIVILEGES;
+ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';
+FLUSH PRIVILEGES;" > temp.sql;
 
-mysqld -e "CREATE DATABASE $MYSQL_DATABASE;"
-mysqld -e "CREATE USER '$MYSQL_USER'@'localhost' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysqld -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'localhost';"
-mysqld -e "FLUSH PRIVILEGES;"
-mysqld -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';"
+mysql_install_db --user=mysql
+mysqld --user=mysql --bootstrap < temp.sql
+mysqld_safe --user=mysql
 
-mysqld
+# mysqld

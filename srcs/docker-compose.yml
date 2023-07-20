@@ -2,13 +2,10 @@ version: '3'
 
 volumes:
   mariadb:
-    name: mariadb
   wordpress:
-    name: wordpress
 
 networks: 
-  test: 
-    name: test
+  test:
 
 services:
   nginx:
@@ -17,6 +14,7 @@ services:
     env_file:
       - .env
     ports: 
+      - 80:80
       - 443:443
     restart: always
   mariadb:
@@ -28,6 +26,8 @@ services:
       - mariadb:/var/lib/mysql
     ports:
       - 3306:3306
+    networks:
+      - test
     restart: always
   wordpress:
     depends_on:
@@ -40,4 +40,6 @@ services:
       - 9000:9000
     env_file:
       - .env
+    networks:
+      - test
     restart: always

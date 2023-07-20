@@ -22,3 +22,6 @@ nginx:
 
 mariadb:
 	docker-compose -f ./srcs/docker-compose.yml exec mariadb /bin/bash
+
+wordpress:
+	docker-compose -f ./srcs/docker-compose.yml exec wordpress /bin/bash
