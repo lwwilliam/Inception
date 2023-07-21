@@ -2,7 +2,17 @@ version: '3'
 
 volumes:
   mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/lwilliam/data/mariadb
   wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /Users/lwilliam/data/wordpress
 
 networks: 
   test:
@@ -16,6 +26,8 @@ services:
     ports: 
       - 80:80
       - 443:443
+    volumes:
+      - wordpress:/var/www/html
     restart: always
   mariadb:
     container_name: mariadb
@@ -34,8 +46,8 @@ services:
       - mariadb
     container_name: wordpress
     build: requirements/wordpress
-    # volumes:
-    #   - wordpress:/var/www/html
+    volumes:
+      - wordpress:/var/www/html
     ports:
       - 9000:9000
     env_file:

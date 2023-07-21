@@ -16,15 +16,22 @@
 # Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
 ##
 
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    server_name lwilliam.42.fr;
+    return 301 https://$host$request_uri;
+}
+
 # Default server configuration
 #
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	# listen 80 default_server;
+	# listen [::]:80 default_server;
 
 	# SSL configuration
 	#
-	# listen 443 ssl default_server;
+	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 	#
 	# Note: You should disable gzip for SSL traffic.
@@ -45,7 +52,7 @@ server {
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
-	index index.html index.htm index.nginx-debian.html;
+	index index.html index.htm index.nginx-debian.html index.php;
 
 	server_name _;
 
@@ -63,7 +70,7 @@ server {
 		# With php-fpm (or other unix sockets):
 		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
 		# With php-cgi (or other tcp sockets):
-		# fastcgi_pass test:9000;
+		# fastcgi_pass wordpress:9000;
 	# }
 
 	# deny access to .htaccess files, if Apache's document root

@@ -1,13 +1,13 @@
 FROM debian:bullseye
 
 RUN apt-get update -y && apt upgrade -y 
-RUN apt-get install -y wget build-essential autoconf libtool bison re2c pkg-config
-# RUN apt-get install -y php-fpm
+RUN apt-get install -y wget vim curl
+RUN apt-get install -y php-fpm php-mysql
 
 # RUN php -v
 
 COPY /tools/script.sh /
-# COPY /tools/wp-config.php /
+COPY /tools/wp-config.php /
 
 CMD [ "/script.sh" ]
 # CMD [ "tail", "-f", "/dev/null"x ]
