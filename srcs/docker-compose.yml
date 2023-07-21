@@ -14,7 +14,7 @@ services:
     env_file:
       - .env
     ports: 
-      - 8080:80
+      - 80:80
       - 443:443
     restart: always
   mariadb:
@@ -28,14 +28,14 @@ services:
       - 3306:3306
     networks:
       - test
-    restart: always
+    restart: on-failure
   wordpress:
     depends_on:
       - mariadb
     container_name: wordpress
     build: requirements/wordpress
-    volumes:
-      - wordpress:/var/www/html
+    # volumes:
+    #   - wordpress:/var/www/html
     ports:
       - 9000:9000
     env_file:
