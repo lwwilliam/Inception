@@ -16,13 +16,6 @@
 # Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
 ##
 
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    server_name lwilliam.42.fr;
-    return 301 https://$host$request_uri;
-}
-
 # Default server configuration
 #
 server {
@@ -52,9 +45,9 @@ server {
 	root /var/www/html;
 
 	# Add index.php to the list if you are using PHP
-	index index.html index.htm index.nginx-debian.html index.php;
+	index index.php;
 
-	server_name _;
+	server_name lwilliam.42.fr;
 
 	location / {
 		# First attempt to serve request as file, then
@@ -64,14 +57,14 @@ server {
 
 	# pass PHP scripts to FastCGI server
 	#
-	# location ~ \.php$ {
-	# 	include snippets/fastcgi-php.conf;
-	
-		# With php-fpm (or other unix sockets):
-		# fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-		# With php-cgi (or other tcp sockets):
-		# fastcgi_pass wordpress:9000;
-	# }
+	location ~ \.php$ {
+		include snippets/fastcgi-php.conf;
+	#
+	#	# With php-fpm (or other unix sockets):
+	#	fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+	#	# With php-cgi (or other tcp sockets):
+		fastcgi_pass wordpress:9000;
+	}
 
 	# deny access to .htaccess files, if Apache's document root
 	# concurs with nginx's one
@@ -100,3 +93,10 @@ server {
 #		try_files $uri $uri/ =404;
 #	}
 #}
+
+# server {
+#     listen 80 default_server;
+#     listen [::]:80 default_server;
+#     server_name lwilliam.42.fr;
+#     return 301 https://$host$request_uri;
+# }

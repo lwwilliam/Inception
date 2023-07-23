@@ -15,19 +15,23 @@ volumes:
       device: /Users/lwilliam/data/wordpress
 
 networks: 
-  test:
+  Inception:
 
 services:
   nginx:
     container_name: nginx
+    depends_on:
+      - wordpress
     build: requirements/nginx
     env_file:
       - .env
     ports: 
-      - 80:80
+      # - 80:80
       - 443:443
     volumes:
       - wordpress:/var/www/html
+    networks:
+      - Inception
     restart: always
   mariadb:
     container_name: mariadb
@@ -39,7 +43,7 @@ services:
     ports:
       - 3306:3306
     networks:
-      - test
+      - Inception
     restart: on-failure
   wordpress:
     depends_on:
@@ -53,5 +57,5 @@ services:
     env_file:
       - .env
     networks:
-      - test
+      - Inception
     restart: always
