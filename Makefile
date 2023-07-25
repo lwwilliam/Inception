@@ -5,15 +5,20 @@ build:
 stop:
 	docker-compose -f ./srcs/docker-compose.yml down
 
+fclean:
+	docker-compose -f ./srcs/docker-compose.yml down
+	docker system prune -f
+	docker volume prune -f
+	rm -rf $(HOME)/data/mariadb/*
+	rm -rf $(HOME)/data/wordpress/*
 
 re:
 	docker-compose -f ./srcs/docker-compose.yml down
-	docker system prune -f
+	make fclean
+	mkdir -p $(HOME)/data/mariadb/
+	mkdir -p $(HOME)/data/wordpress/
 	docker-compose -f ./srcs/docker-compose.yml build
 	docker-compose -f ./srcs/docker-compose.yml up
-
-fclean:
-	docker system prune -f
 
 ps:
 	docker-compose -f ./srcs/docker-compose.yml ps
