@@ -13,6 +13,7 @@ COPY /tools/script.sh /
 #copy the niginx config to the container config directory
 COPY /conf/default /etc/nginx/sites-available/default
 
+#the include mime.types is very important for the webpage to know the css file to be displayes properly
 COPY /conf/nginx.conf /etc/nginx/
 
 #port 433 is for tls 1.3

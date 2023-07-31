@@ -8,7 +8,7 @@ RUN apt-get install -y php-fpm php-mysql
 
 # copy the script and config into the container
 COPY /tools/script.sh /
-COPY /tools/wp-config.php /
+COPY /config/wp-config.php /
 
 CMD [ "/script.sh" ]
 # CMD [ "tail", "-f", "/dev/null" ]
