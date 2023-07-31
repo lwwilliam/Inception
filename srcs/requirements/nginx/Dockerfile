@@ -19,7 +19,4 @@ COPY /conf/nginx.conf /etc/nginx/
 EXPOSE 443
 # EXPOSE 80
 
-# When daemon mode is enabled, the Nginx process runs in the background and detaches 
-# from the terminal. When daemon mode is disabled, the Nginx process runs in the 
-# foreground and stays connected to the terminal.
 CMD ["/script.sh"]
